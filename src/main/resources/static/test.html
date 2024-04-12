@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+</head>
+<body>
+<h1>User Management</h1>
+
+<div id="userList">
+    <!-- Users will be displayed here -->
+</div>
+
+<script>
+    // Fetch all users when the page loads
+    window.onload = function() {
+        fetchUsers();
+    };
+
+    // Function to fetch all users from the API
+    function fetchUsers() {
+        fetch('/api/users')
+            .then(response => response.json())
+            .then(users => {
+                const userListDiv = document.getElementById('userList');
+                userListDiv.innerHTML = '';
+
+                users.forEach(user => {
+                    const userDiv = document.createElement('div');
+                    userDiv.textContent = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}`;
+                    userListDiv.appendChild(userDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching users:', error));
+    }
+
+    // Function to create a new user
+    function createUser() {
+        const newUser = {
+            name: 'John Doe',
+            email: 'john@example.com'
+        };
+
+        fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        })
+            .then(response => response.json())
+            .then(newUser => {
+                console.log('New user created:', newUser);
+                fetchUsers(); // Refresh the user list
+            })
+            .catch(error => console.error('Error creating user:', error));
+    }
+</script>
+
+<button onclick="createUser()">Create User</button>
+</body>
+</html>
