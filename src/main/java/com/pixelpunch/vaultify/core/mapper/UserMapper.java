@@ -2,16 +2,13 @@ package com.pixelpunch.vaultify.core.mapper;
 
 import com.pixelpunch.vaultify.core.model.User;
 import com.pixelpunch.vaultify.web.dto.UserDto;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@NoArgsConstructor
 @Component
 public class UserMapper {
-
+    private UserMapper() {}
     public static UserDto userToDTO(User user) {
         return new UserDto(
                 user.getId(),
@@ -27,8 +24,8 @@ public class UserMapper {
                 user.getTwoFactorVerificationCode(),
                 user.getCreated(),
                 user.getLastPasswordChange(),
-                user.getCiphers() != null ? user.getCiphers().stream().map(CipherMapper::cipherToDTO).collect(Collectors.toList()) : null,
-                user.getPasswords() != null ? user.getPasswords().stream().map(PasswordMapper::passwordToDTO).collect(Collectors.toList()) : null
+                user.getCiphers() != null ? user.getCiphers().stream().map(CipherMapper::cipherToDTO).toList() : null,
+                user.getPasswords() != null ? user.getPasswords().stream().map(PasswordMapper::passwordToDTO).toList() : null
         );
     }
 
@@ -47,8 +44,8 @@ public class UserMapper {
                 userDTO.getTwoFactorVerificationCode(),
                 userDTO.getCreated(),
                 userDTO.getLastPasswordChange(),
-                userDTO.getCiphers() != null ? userDTO.getCiphers().stream().map(CipherMapper::dtoToCipher).collect(Collectors.toList()) : null,
-                userDTO.getPasswords() != null ? userDTO.getPasswords().stream().map(PasswordMapper::dtoToPasswords).collect(Collectors.toList()) : null
+                userDTO.getCiphers() != null ? userDTO.getCiphers().stream().map(CipherMapper::dtoToCipher).toList() : null,
+                userDTO.getPasswords() != null ? userDTO.getPasswords().stream().map(PasswordMapper::dtoToPasswords).toList() : null
         );
     }
 

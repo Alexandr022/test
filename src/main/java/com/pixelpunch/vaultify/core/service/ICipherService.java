@@ -1,7 +1,6 @@
 package com.pixelpunch.vaultify.core.service;
 
 import com.pixelpunch.vaultify.core.model.Cipher;
-import com.pixelpunch.vaultify.core.service.implementations.CipherService;
 import com.pixelpunch.vaultify.web.dto.CipherDto;
 import org.springframework.http.ResponseEntity;
 

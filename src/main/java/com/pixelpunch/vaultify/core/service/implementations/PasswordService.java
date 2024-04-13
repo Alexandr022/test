@@ -18,7 +18,6 @@ import java.util.List;
 public class PasswordService implements com.pixelpunch.vaultify.core.service.IPasswordService {
     private final PasswordRepository passwordRepository;
     private final UserRepository userRepository;
-    private final PasswordMapper passwordMapper;
     private final IPasswordGeneratorService passwordGeneratorService;
 
     @Override
@@ -30,7 +29,7 @@ public class PasswordService implements com.pixelpunch.vaultify.core.service.IPa
     public PasswordDto createPassword(Long userId, PasswordDto passwordDTO) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
         passwordDTO.setPassword(passwordGeneratorService.generatePassword(passwordDTO.getLength(), passwordDTO.isIncludeUppercase(), passwordDTO.isIncludeNumbers(), passwordDTO.isIncludeSpecial()));
-        Password password = passwordMapper.dtoToPasswords(passwordDTO);
+        Password password = PasswordMapper.dtoToPasswords(passwordDTO);
         password.setOwner(user);
         Date date = new Date();
         password.setGeneratedTime(date);
@@ -49,7 +48,7 @@ public class PasswordService implements com.pixelpunch.vaultify.core.service.IPa
     public PasswordDto updatePassword(Long id, PasswordDto updatedPasswordDTO) {
         Password existingPassword = passwordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Password not found"));
-        Password updatedPassword = passwordMapper.dtoToPasswords(updatedPasswordDTO);
+        Password updatedPassword = PasswordMapper.dtoToPasswords(updatedPasswordDTO);
         existingPassword.setPasswords(updatedPassword.getPasswords());
         existingPassword = passwordRepository.save(existingPassword);
         return PasswordMapper.passwordToDTO(existingPassword);

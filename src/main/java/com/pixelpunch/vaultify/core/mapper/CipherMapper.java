@@ -2,13 +2,11 @@ package com.pixelpunch.vaultify.core.mapper;
 
 import com.pixelpunch.vaultify.core.model.Cipher;
 import com.pixelpunch.vaultify.web.dto.CipherDto;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
 @Component
 public class CipherMapper {
-
+    private CipherMapper() {}
     public static CipherDto cipherToDTO(Cipher cipher) {
         return new CipherDto(
                 cipher.getId(),

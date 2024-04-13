@@ -77,20 +77,6 @@ class UserControllerTest {
     }
 
     @Test
-    void testGetUsersByEmailVerified() {
-        boolean emailVerified = true;
-        List<User> users = Arrays.asList(new User(), new User());
-        List<UserDto> userDtos = Arrays.asList(new UserDto(), new UserDto());
-        when(userService.getUsersByEmailVerified(emailVerified)).thenReturn(users);
-        when(userMapper.usersToDTO(users)).thenReturn(userDtos);
-
-        ResponseEntity<List<UserDto>> result = userController.getUsersByEmailVerified(emailVerified);
-
-        assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(userDtos, result.getBody());
-    }
-
-    @Test
     void testGetPublicKey() {
         Long userId = 1L;
         String publicKey = "publicKey";

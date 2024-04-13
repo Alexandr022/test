@@ -22,14 +22,13 @@ import java.util.List;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final KeyPairGenerator keyPairGenerator;
 
     @Override
     public UserDto getUserById(Long userId) {
         User user = userRepository.findById(userId).orElse(null);
-        return user != null ? userMapper.userToDTO(user) : null;
+        return user != null ? UserMapper.userToDTO(user) : null;
     }
 
     @Override
@@ -67,7 +66,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto updateUser(UserDto userDTO) {
-        User user = userMapper.dtoToUser(userDTO);
+        User user = UserMapper.dtoToUser(userDTO);
         User updatedUser = userRepository.save(user);
         return UserMapper.userToDTO(updatedUser);
     }

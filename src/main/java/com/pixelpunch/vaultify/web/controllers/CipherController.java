@@ -30,7 +30,8 @@ public class CipherController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<String> createCipher(@Valid @RequestBody CipherDto cipherRequestDTO, @PathVariable Long userId) {
+    public ResponseEntity<String> createCipher(@Valid @RequestBody CipherDto cipherRequestDTO,
+                                               @PathVariable Long userId) {
         try {
             ResponseEntity<String> response = cipherService.createCipher(cipherRequestDTO, userId);
             return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
@@ -41,7 +42,8 @@ public class CipherController {
     }
 
     @PutMapping("/{cipherId}")
-    public ResponseEntity<CipherDto> updateCipher(@PathVariable Long cipherId, @RequestBody CipherDto updatedCipherDto) throws Exception {
+    public ResponseEntity<CipherDto> updateCipher(@PathVariable Long cipherId,
+                                                  @RequestBody CipherDto updatedCipherDto) {
         return cipherService.updateCipher(cipherId, updatedCipherDto);
     }
 
@@ -57,7 +59,8 @@ public class CipherController {
     }
 
     @PostMapping("/bulk-create/{userId}")
-    public ResponseEntity<String> createCipherBulk(@RequestBody List<CipherDto> cipherDtoList, @PathVariable Long userId) {
+    public ResponseEntity<String> createCipherBulk(@RequestBody List<CipherDto> cipherDtoList,
+                                                   @PathVariable Long userId) {
         try {
             cipherService.createCipherBulk(cipherDtoList, userId);
             return ResponseEntity.status(HttpStatus.CREATED).body("Bulk cipher creation successful");
@@ -77,7 +80,6 @@ public class CipherController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
-
 
 }
 

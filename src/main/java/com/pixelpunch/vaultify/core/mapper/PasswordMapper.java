@@ -2,12 +2,11 @@ package com.pixelpunch.vaultify.core.mapper;
 
 import com.pixelpunch.vaultify.core.model.Password;
 import com.pixelpunch.vaultify.web.dto.PasswordDto;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
 @Component
 public class PasswordMapper {
+    private PasswordMapper() {}
     public static PasswordDto passwordToDTO(Password password) {
         return new PasswordDto(
                 password.getId(),

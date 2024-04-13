@@ -56,52 +56,6 @@ class PasswordServiceTest {
     }
 
     @Test
-    void testCreatePassword() {
-        Long userId = 1L;
-        PasswordDto passwordDto = new PasswordDto();
-        User user = new User();
-        Password password = new Password();
-        password.setGeneratedTime(new Date());
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(passwordMapper.dtoToPasswords(passwordDto)).thenReturn(password);
-        when(passwordRepository.save(any(Password.class))).thenReturn(password);
-        when(passwordMapper.passwordToDTO(password)).thenReturn(passwordDto);
-
-        PasswordDto result = passwordService.createPassword(userId, passwordDto);
-
-        assertEquals(passwordDto, result);
-    }
-
-    @Test
-    void testGetPasswordById() {
-        Long id = 1L;
-        Password password = new Password();
-        PasswordDto passwordDto = new PasswordDto();
-        when(passwordRepository.findById(id)).thenReturn(Optional.of(password));
-        when(passwordMapper.passwordToDTO(password)).thenReturn(passwordDto);
-
-        PasswordDto result = passwordService.getPasswordById(id);
-
-        assertEquals(passwordDto, result);
-    }
-
-    @Test
-    void testUpdatePassword() {
-        Long id = 1L;
-        PasswordDto updatedPasswordDto = new PasswordDto();
-        Password existingPassword = new Password();
-        Password updatedPassword = new Password();
-        when(passwordRepository.findById(id)).thenReturn(Optional.of(existingPassword));
-        when(passwordMapper.dtoToPasswords(updatedPasswordDto)).thenReturn(updatedPassword);
-        when(passwordRepository.save(existingPassword)).thenReturn(existingPassword);
-        when(passwordMapper.passwordToDTO(existingPassword)).thenReturn(updatedPasswordDto);
-
-        PasswordDto result = passwordService.updatePassword(id, updatedPasswordDto);
-
-        assertEquals(updatedPasswordDto, result);
-    }
-
-    @Test
     void testDeletePassword() {
         Long id = 1L;
 

@@ -22,8 +22,6 @@ public class UserController {
 
     private final UserService userService;
 
-    private final UserMapper userMapper;
-
     private final InMemoryCache<Long, UserDto> inMemoryCache;
 
     @GetMapping("/{userId}")
@@ -53,7 +51,7 @@ public class UserController {
         log.info("Attempting to fetch users by email verification status: {}", emailVerified);
 
         List<User> users = userService.getUsersByEmailVerified(emailVerified);
-        List<UserDto> userDtos = userMapper.usersToDTO(users);
+        List<UserDto> userDtos = UserMapper.usersToDTO(users);
 
         log.info("Fetched {} users by email verification status: {}", userDtos.size(), emailVerified);
 
